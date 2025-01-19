@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animasi Interaktif</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      display: block;
+    }
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 36px;
+      font-weight: bold;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="message">Halo, Selamat Datang!</div>
+  <canvas id="animationCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById('animationCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Resize canvas to full screen
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Circle properties
+    let x = canvas.width / 2;
+    let y = canvas.height / 2;
+    let radius = 50;
+    let speed = 5;
+    let dx = speed;
+
+    // Animation loop
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2, false); // Draw circle
+      ctx.fillStyle = 'cornflowerblue';
+      ctx.fill();
+      ctx.closePath();
+
+      // Update circle position
+      x += dx;
+
+      // Reverse direction if it hits canvas edge
+      if (x + radius > canvas.width || x - radius < 0) {
+        dx = -dx;
+      }
+
+      requestAnimationFrame(animate); // Call animate again
+    }
+
+    // Start animation
+    animate();
+  </script>
+</body>
+</html>
